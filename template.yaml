@@ -1,0 +1,44 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+
+Resources:
+
+  UserTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: UserData
+      AttributeDefinitions:
+        - AttributeName: userId
+          AttributeType: S
+      KeySchema:
+        - AttributeName: userId
+          KeyType: HASH
+      BillingMode: PAY_PER_REQUEST
+
+  NotificationTopic:
+    Type: AWS::SNS::Topic
+    Properties:
+      TopicName: UserNotifications
+
+  ServerlessFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: processUserData
+      Runtime: python3.9
+      Handler: app.lambda_handler
+      CodeUri: lambda/
+      Environment:
+        Variables:
+          TABLE_NAME: UserData
+          TOPIC_ARN: !Ref NotificationTopic
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: UserData
+        - SNSPublishMessagePolicy:
+            TopicName: UserNotifications
+      Events:
+        ApiEvent:
+          Type: Api
+          Properties:
+            Path: /addUser
+            Method: post
