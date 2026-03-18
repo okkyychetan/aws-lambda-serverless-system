@@ -64,13 +64,9 @@ To avoid AWS charges:
 
 ![Output Screenshot](./output.png)
 
-## 🔗 Reference
-
-Inspired from:
-https://kevinkiruri.medium.com/serverless-architecture-on-aws-be3d6bd13f9a
 
 ## 🙌 Author
 
 **Your Name**
-- GitHub: https://github.com/yourusername
-- LinkedIn: https://linkedin.com/in/yourprofile
+- GitHub: https://github.com/okkyychetan
+- LinkedIn: https://linkedin.com/in/chetan-bhiwagade-45530a25a
